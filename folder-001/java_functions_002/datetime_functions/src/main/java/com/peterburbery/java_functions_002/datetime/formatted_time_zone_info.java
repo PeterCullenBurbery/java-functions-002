@@ -4,8 +4,16 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.WeekFields;
 
+/**
+ * Provides utilities for formatting time zone-aware timestamps and generating safe identifiers.
+ */
 public class formatted_time_zone_info {
 
+    /**
+     * Returns a formatted timestamp string with time zone, ISO week, and ordinal date info.
+     *
+     * @return Formatted timestamp string with zone and ISO metadata.
+     */
     public static String Get_current_date_timestamp() {
         ZonedDateTime now = ZonedDateTime.now();
         ZoneId tz = now.getZone();
@@ -37,10 +45,22 @@ public class formatted_time_zone_info {
         return output;
     }
 
+    /**
+     * Replaces all forward slashes in the input string with the word " slash ".
+     *
+     * @param input Input string to sanitize.
+     * @return String with "/" replaced by " slash ".
+     */
     public static String replace_slash(String input) {
         return input.replace("/", " slash ");
     }
 
+    /**
+     * Replaces specific special characters (dash, space, period) in the input string with underscores.
+     *
+     * @param input Input string to transform.
+     * @return Modified string with special characters replaced.
+     */
     public static String replace_special_chars(String input) {
         String[] targets = { "-", " ", "." };
         for (String ch : targets) {
@@ -49,14 +69,29 @@ public class formatted_time_zone_info {
         return input;
     }
 
+    /**
+     * Returns a timestamp string where slashes, dashes, spaces, and dots have been replaced with underscores.
+     *
+     * @return A safe, underscore-formatted timestamp string.
+     */
     public static String safetime_timestamp_of_underscore() {
         return replace_special_chars(replace_slash(Get_current_date_timestamp()));
     }
 
+    /**
+     * Returns a username-like string prefixed with "user_" and suffixed with a safe timestamp.
+     *
+     * @return User-friendly identifier with embedded timestamp.
+     */
     public static String user_timestamped() {
         return "user_" + safetime_timestamp_of_underscore();
     }
 
+    /**
+     * Main method for demonstration. Prints each transformation step.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         String original = Get_current_date_timestamp();
         System.out.println(original); // Step 1: original timestamp
@@ -70,4 +105,12 @@ public class formatted_time_zone_info {
         String username = user_timestamped();
         System.out.println(username); // Final username
     }
+
+    /**
+     * Default constructor (not used). Exists to satisfy documentation tools.
+     */
+    public formatted_time_zone_info() {
+        // No instance needed for static utility class
+    }
+
 }

@@ -67,3 +67,11 @@ publishing {
 signing {
     sign(publishing.publications["mavenJava"])
 }
+
+testing {
+    suites {
+        val test by getting(JvmTestSuite::class) {
+            useJUnitJupiter()
+        }
+    }
+}
